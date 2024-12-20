@@ -1,0 +1,38 @@
+package main
+
+import "fmt"
+
+func main() {
+	var angka []int
+
+	for {
+		var masukan int
+		fmt.Scan(&masukan)
+
+		if masukan == -5313 {
+			break
+		} else if masukan == 0 {
+			median := hitungMedian(angka)
+			fmt.Println(median)
+		} else {
+			angka = sisipTerurut(angka, masukan)
+		}
+	}
+}
+
+func hitungMedian(angka []int) int {
+	n := len(angka)
+	if n%2 == 1 {
+		return angka[n/2]
+	}
+	return (angka[n/2-1] + angka[n/2]) / 2
+}
+
+func sisipTerurut(angka []int, nilai int) []int {
+	for i, v := range angka {
+		if nilai < v {
+			return append(angka[:i], append([]int{nilai}, angka[i:]...)...)
+		}
+	}
+	return append(angka, nilai)
+}
